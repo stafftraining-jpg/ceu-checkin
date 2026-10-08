@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>CEU Check-In | CAL ACE Nursing Academy</title>
+<style>html,body{margin:0;background:#f3f6f9}body{padding:16px}</style>
+</head>
+<body>
+<!-- ================================================================
+  CAL ACE — CEU Instructor Check-In
+  Paste this whole block into a WordPress "Custom HTML" block on the
+  page calacenursingacademy.com/ceu-checkin. Nothing else is needed.
+================================================================= -->
+<div id="ceuApp">
+<style>
+  #ceuApp{--navy:#12304f;--teal:#0f8b8d;--teal-d:#0b6c6e;--bg:#f3f6f9;--line:#d5dde5;--text:#1d2733;
+    --muted:#5b6876;--ok:#1e8e5a;--okbg:#e6f5ee;--warn:#9a6412;--warnbg:#fdf6e7;--err:#c0392b;--errbg:#fdf3f2;
+    max-width:560px;margin:0 auto;font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--text);line-height:1.45;font-size:16px}
+  #ceuApp *{box-sizing:border-box}
+  #ceuApp .hdr{background:var(--navy);color:#fff;border-radius:12px 12px 0 0;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+  #ceuApp .hdr h2{margin:0;font-size:20px;color:#fff;line-height:1.2}
+  #ceuApp .hdr p{margin:2px 0 0;font-size:13px;opacity:.85;color:#fff}
+  #ceuApp .body{background:#fff;border:1px solid var(--line);border-top:none;border-radius:0 0 12px 12px;padding:18px 20px}
+  #ceuApp label{display:block;font-weight:600;font-size:14px;margin:12px 0 6px}
+  #ceuApp input[type=text],#ceuApp input[type=password],#ceuApp input[type=date]{width:100%;padding:12px;font-size:16px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--text);margin:0}
+  #ceuApp button{font-family:inherit;cursor:pointer;border-radius:8px;font-weight:600;line-height:1.2;text-transform:none;letter-spacing:normal}
+  #ceuApp .btn{width:100%;margin-top:16px;padding:14px;font-size:17px;border:none;background:var(--teal);color:#fff}
+  #ceuApp .btn:hover{background:var(--teal-d)}
+  #ceuApp .btn:disabled{opacity:.6;cursor:wait}
+  #ceuApp .link{background:none;border:1px solid rgba(255,255,255,.5);color:#fff;font-size:13px;padding:6px 10px}
+  #ceuApp .scan{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:18px;font-size:19px;border:none;background:var(--teal);color:#fff;margin:4px 0 14px}
+  #ceuApp .scan svg{width:26px;height:26px}
+  #ceuApp .datebar{display:flex;gap:10px;align-items:end}
+  #ceuApp .datebar>div{flex:1}
+  #ceuApp .count{font-size:14px;color:var(--muted);margin:14px 0 6px;display:flex;justify-content:space-between}
+  #ceuApp .list{border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  #ceuApp .stu{display:flex;align-items:center;gap:12px;padding:12px 14px;border-top:1px solid var(--line)}
+  #ceuApp .stu:first-child{border-top:none}
+  #ceuApp .stu.done{background:var(--okbg)}
+  #ceuApp .stu .nm{font-weight:700;color:var(--navy)}
+  #ceuApp .stu .dt{font-size:13px;color:var(--muted)}
+  #ceuApp .stu .info{flex:1;min-width:0}
+  #ceuApp .stu .st{font-size:13px;color:var(--ok);font-weight:600;text-align:right;white-space:nowrap}
+  #ceuApp .stu .manual{border:1px solid var(--line);background:#fff;color:var(--navy);font-size:14px;padding:8px 12px;white-space:nowrap}
+  #ceuApp .empty{padding:18px;text-align:center;color:var(--muted);font-size:15px}
+  #ceuApp .msg{border-radius:8px;padding:12px 14px;margin-top:12px;font-size:15px;font-weight:600}
+  #ceuApp .msg.ok{background:var(--okbg);color:var(--ok)}
+  #ceuApp .msg.warn{background:var(--warnbg);color:var(--warn)}
+  #ceuApp .msg.err{background:var(--errbg);color:var(--err)}
+  #ceuApp .msg .row{display:flex;gap:8px;margin-top:10px}
+  #ceuApp .msg .row button{flex:1;padding:10px;font-size:15px;border:1px solid var(--line);background:#fff;color:var(--text)}
+  #ceuApp .msg .row button.go{background:var(--warn);border-color:var(--warn);color:#fff}
+  #ceuApp .hidden{display:none!important}
+  /* Scanner overlay */
+  #ceuApp .ov{position:fixed;inset:0;background:#000;z-index:99999;display:flex;flex-direction:column}
+  #ceuApp .ov .top{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;color:#fff}
+  #ceuApp .ov .top b{font-size:17px}
+  #ceuApp .ov .top button{background:#fff;color:#000;border:none;padding:8px 14px;font-size:15px}
+  #ceuApp #ceuReader{flex:1;width:100%;overflow:hidden}
+  #ceuApp #ceuReader video{object-fit:cover}
+  #ceuApp .ov .res{min-height:96px;padding:14px 16px;color:#fff;font-size:17px;text-align:center;background:#111}
+  #ceuApp .ov .res.ok{background:var(--ok)}
+  #ceuApp .ov .res.warn{background:var(--warn)}
+  #ceuApp .ov .res.err{background:var(--err)}
+  #ceuApp .ov .res .big{font-size:21px;font-weight:700;display:block}
+  #ceuApp .ov .res .row{display:flex;gap:8px;margin-top:10px}
+  #ceuApp .ov .res .row button{flex:1;padding:10px;font-size:15px;border:none;background:#fff;color:#000}
+</style>
+
+<div class="hdr">
+  <div><h2>CEU Check-In</h2><p>CAL ACE Nursing Academy · Instructors</p></div>
+  <button class="link hidden" id="ceuLogout">Log out</button>
+</div>
+<div class="body">
+
+  <!-- LOGIN -->
+  <div id="ceuLogin">
+    <label for="ceuName">Your name</label>
+    <input type="text" id="ceuName" autocomplete="name" placeholder="e.g. Rebecca C.">
+    <label for="ceuPin">Instructor PIN</label>
+    <input type="password" id="ceuPin" inputmode="numeric" autocomplete="current-password">
+    <button class="btn" id="ceuLoginBtn">Log in</button>
+    <div id="ceuLoginMsg" class="msg err hidden"></div>
+  </div>
+
+  <!-- MAIN -->
+  <div id="ceuMain" class="hidden">
+    <button class="scan" id="ceuScanBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><rect x="7" y="7" width="10" height="10" rx="1"/></svg>
+      Scan Student QR
+    </button>
+    <div class="datebar">
+      <div><label for="ceuDate">Class date</label><input type="date" id="ceuDate"></div>
+    </div>
+    <div id="ceuMsg" class="msg hidden"></div>
+    <div class="count"><span id="ceuCount">Loading…</span><span id="ceuWho"></span></div>
+    <div class="list" id="ceuList"><div class="empty">Loading roster…</div></div>
+  </div>
+
+  <!-- SCANNER OVERLAY -->
+  <div class="ov hidden" id="ceuOverlay">
+    <div class="top"><b>Point at the student's QR</b><button id="ceuCloseScan">Done</button></div>
+    <div id="ceuReader"></div>
+    <div class="res" id="ceuRes">Ready to scan</div>
+  </div>
+</div>
+</div>
+
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+<script>
+(function(){
+  /* ---- Setting: the CEU web app URL (same as WEB_APP_URL in Settings.gs) ---- */
+  var API_URL = "https://script.google.com/macros/s/AKfycbx7RipanvbInhDYUXEeqSn5Wx4h6pRqOhCtiYK4uCwNSbF_t6plX2JJCBBdZCmlb7zx/exec";
+
+  var $ = function(id){ return document.getElementById(id); };
+  var store = {
+    get:function(k){ try{ return localStorage.getItem(k)||""; }catch(e){ return ""; } },
+    set:function(k,v){ try{ localStorage.setItem(k,v); }catch(e){} },
+    del:function(k){ try{ localStorage.removeItem(k); }catch(e){} }
+  };
+  var S = { name: store.get("ceu_name"), pin: store.get("ceu_pin"), students: [] };
+
+  function todayPT(){ return new Date().toLocaleDateString("en-CA",{timeZone:"America/Los_Angeles"}); }
+  function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
+
+  function api(body){
+    body.pin = S.pin;
+    return fetch(API_URL,{method:"POST",body:JSON.stringify(body)})   // text/plain: no CORS preflight
+      .then(function(r){ return r.json(); })
+      .then(function(res){ if(res && res.badPin){ logout(); showLoginErr("Your PIN was not accepted. Please log in again."); } return res; })
+      .catch(function(){ return {ok:false,error:"Can't reach the server. Check the phone's internet connection."}; });
+  }
+
+  /* ---------- Login ---------- */
+  function showLoginErr(t){ $("ceuLoginMsg").textContent=t; $("ceuLoginMsg").classList.remove("hidden"); }
+  function login(){
+    var name=$("ceuName").value.trim(), pin=$("ceuPin").value.trim();
+    if(!name) return showLoginErr("Enter your name.");
+    if(!pin) return showLoginErr("Enter the instructor PIN.");
+    $("ceuLoginBtn").disabled=true; $("ceuLoginBtn").textContent="Checking…";
+    S.pin=pin; S.name=name;
+    api({action:"login"}).then(function(res){
+      $("ceuLoginBtn").disabled=false; $("ceuLoginBtn").textContent="Log in";
+      if(!res.ok) return showLoginErr(res.error||"Login failed.");
+      store.set("ceu_name",name); store.set("ceu_pin",pin);
+      enterMain();
+    });
+  }
+  function logout(){
+    store.del("ceu_pin"); S.pin="";
+    $("ceuMain").classList.add("hidden"); $("ceuLogout").classList.add("hidden");
+    $("ceuLogin").classList.remove("hidden"); $("ceuPin").value="";
+  }
+  function enterMain(){
+    $("ceuLogin").classList.add("hidden"); $("ceuLoginMsg").classList.add("hidden");
+    $("ceuMain").classList.remove("hidden"); $("ceuLogout").classList.remove("hidden");
+    $("ceuWho").textContent="Logged in: "+S.name;
+    if(!$("ceuDate").value) $("ceuDate").value=todayPT();
+    loadRoster();
+  }
+
+  /* ---------- Roster ---------- */
+  function loadRoster(){
+    $("ceuCount").textContent="Loading…";
+    api({action:"roster",date:$("ceuDate").value}).then(function(res){
+      if(!res.ok){ $("ceuList").innerHTML='<div class="empty">'+esc(res.error)+'</div>'; return; }
+      S.students=res.students; renderRoster();
+    });
+  }
+  function renderRoster(){
+    var st=S.students, done=st.filter(function(s){return s.attendedAt;}).length;
+    $("ceuCount").textContent=st.length ? (done+" of "+st.length+" checked in") : "No registrations";
+    if(!st.length){ $("ceuList").innerHTML='<div class="empty">No one is registered through the new form for this date.</div>'; return; }
+    $("ceuList").innerHTML=st.map(function(s){
+      return '<div class="stu'+(s.attendedAt?' done':'')+'"><div class="info"><div class="nm">'+esc(s.name)+'</div><div class="dt">'+esc(s.details)+'</div></div>'+
+        (s.attendedAt ? '<div class="st">✓ '+esc(s.attendedAt.split(" ").slice(-2).join(" "))+'</div>'
+                      : '<button class="manual" data-id="'+esc(s.id)+'">Check in</button>')+'</div>';
+    }).join("");
+  }
+  function showMsg(kind,html){ var m=$("ceuMsg"); m.className="msg "+kind; m.innerHTML=html; }
+  function hideMsg(){ $("ceuMsg").className="msg hidden"; }
+
+  /* ---------- Check-in (shared by scanner and manual button) ---------- */
+  function checkIn(id,force){
+    return api({action:"checkin",id:id,date:$("ceuDate").value,instructor:S.name,force:!!force});
+  }
+  function manualCheckIn(id,btn){
+    var s=S.students.filter(function(x){return x.id===id;})[0];
+    if(!confirm("Check in "+(s?s.name:id)+" without scanning?")) return;
+    btn.disabled=true; btn.textContent="…";
+    checkIn(id,false).then(function(res){
+      if(res.ok){ showMsg("ok","✓ "+esc(res.reg.name)+" checked in."); loadRoster(); }
+      else { btn.disabled=false; btn.textContent="Check in"; showMsg("err",esc(res.error)); }
+    });
+  }
+
+  /* ---------- Scanner ---------- */
+  var qr=null, busy=false, lastCode="", lastAt=0;
+  function beep(ok){
+    try{ var c=new (window.AudioContext||window.webkitAudioContext)(), o=c.createOscillator(), g=c.createGain();
+      o.frequency.value=ok?880:220; o.connect(g); g.connect(c.destination); g.gain.value=.15; o.start(); o.stop(c.currentTime+(ok?.15:.35)); }catch(e){}
+    try{ navigator.vibrate && navigator.vibrate(ok?80:[80,60,80]); }catch(e){}
+  }
+  function setRes(kind,html){ var r=$("ceuRes"); r.className="res "+(kind||""); r.innerHTML=html; }
+  function openScanner(){
+    if(typeof Html5Qrcode==="undefined"){ showMsg("err","The scanner didn't load. Refresh the page and try again."); return; }
+    hideMsg(); $("ceuOverlay").classList.remove("hidden"); document.body.style.overflow="hidden";
+    setRes("","Ready to scan"); busy=false;
+    qr=new Html5Qrcode("ceuReader");
+    qr.start({facingMode:"environment"},{fps:10,qrbox:function(w,h){var m=Math.floor(Math.min(w,h)*0.7);return {width:m,height:m};}},onScan)
+      .catch(function(){ setRes("err",'<span class="big">Camera blocked</span>Allow camera access for this site in your browser settings, then tap Done and try again.'); });
+  }
+  function closeScanner(){
+    $("ceuOverlay").classList.add("hidden"); document.body.style.overflow="";
+    if(qr){ qr.stop().catch(function(){}).then(function(){ try{qr.clear();}catch(e){} qr=null; }); }
+    loadRoster();
+  }
+  function onScan(text){
+    var now=Date.now();
+    if(busy || (text===lastCode && now-lastAt<4000)) return;   // ignore repeat reads of the same QR
+    busy=true; lastCode=text; lastAt=now;
+    setRes("","Checking…");
+    checkIn(text,false).then(handleScanResult(text));
+  }
+  function handleScanResult(text){
+    return function(res){
+      if(res.ok && res.alreadyCheckedIn){
+        beep(true); setRes("warn",'<span class="big">'+esc(res.reg.name)+'</span>Already checked in '+esc(res.reg.attendedAt)+(res.reg.checkedBy?' by '+esc(res.reg.checkedBy):''));
+        return resume();
+      }
+      if(res.ok){ beep(true); setRes("ok",'<span class="big">✓ '+esc(res.reg.name)+'</span>Checked in'); return resume(); }
+      if(res.needsConfirm){
+        beep(false);
+        setRes("warn",'<span class="big">'+esc(res.reg.name)+'</span>Registered for '+esc(res.reg.classLabel)+', not this date.'+
+          '<div class="row"><button id="ceuSkip">Skip</button><button id="ceuForce">Check in anyway</button></div>');
+        $("ceuSkip").onclick=function(){ setRes("","Ready to scan"); busy=false; };
+        $("ceuForce").onclick=function(){ setRes("","Checking…"); checkIn(text,true).then(handleScanResult(text)); };
+        return;
+      }
+      beep(false); setRes("err",'<span class="big">Not checked in</span>'+esc(res.error||"Unknown error")); resume(2500);
+    };
+  }
+  function resume(ms){ setTimeout(function(){ busy=false; }, ms||1800); }
+
+  /* ---------- Wire up ---------- */
+  $("ceuLoginBtn").addEventListener("click",login);
+  $("ceuPin").addEventListener("keydown",function(e){ if(e.key==="Enter") login(); });
+  $("ceuLogout").addEventListener("click",logout);
+  $("ceuDate").addEventListener("change",function(){ hideMsg(); loadRoster(); });
+  $("ceuScanBtn").addEventListener("click",openScanner);
+  $("ceuCloseScan").addEventListener("click",closeScanner);
+  $("ceuList").addEventListener("click",function(e){ var b=e.target.closest("button.manual"); if(b) manualCheckIn(b.getAttribute("data-id"),b); });
+
+  $("ceuName").value=S.name;
+  if(S.pin && S.name) enterMain();   // stays logged in on this phone
+})();
+</script>
+
+</body>
+</html>
